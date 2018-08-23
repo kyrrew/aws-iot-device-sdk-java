@@ -56,7 +56,7 @@ public class AwsIotTlsSocketFactory extends SSLSocketFactory {
             context.init(managerFactory.getKeyManagers(), null, null);
 
             sslSocketFactory = context.getSocketFactory();
-        } catch (NoSuchAlgorithmException | KeyStoreException | UnrecoverableKeyException | KeyManagementException e) {
+        } catch (Exception e) {
             throw new AWSIotException(e);
         }
     }
@@ -121,7 +121,8 @@ public class AwsIotTlsSocketFactory extends SSLSocketFactory {
 
             // Ensure hostname is validated againt the CN in the certificate
             SSLParameters sslParams = new SSLParameters();
-            sslParams.setEndpointIdentificationAlgorithm("HTTPS");
+            // KW MOD:
+            // sslParams.setEndpointIdentificationAlgorithm("HTTPS");
             ((SSLSocket) socket).setSSLParameters(sslParams);
         }
         return socket;

@@ -46,9 +46,9 @@ public abstract class AbstractAwsIotClient implements AwsIotConnectionCallback {
 
     private static final Logger LOGGER = Logger.getLogger(AbstractAwsIotClient.class.getName());
 
-    protected final String clientId;
-    protected final String clientEndpoint;
-    protected final AwsIotConnectionType connectionType;
+    protected  String clientId;
+    protected  String clientEndpoint;
+    protected  AwsIotConnectionType connectionType;
 
     protected int numOfClientThreads = AWSIotConfig.NUM_OF_CLIENT_THREADS;
     protected int connectionTimeout = AWSIotConfig.CONNECTION_TIMEOUT;
@@ -60,11 +60,14 @@ public abstract class AbstractAwsIotClient implements AwsIotConnectionCallback {
     protected int maxOfflineQueueSize = AWSIotConfig.MAX_OFFLINE_QUEUE_SIZE;
     protected AWSIotMessage willMessage;
 
-    private final ConcurrentMap<String, AWSIotTopic> subscriptions = new ConcurrentHashMap<>();
-    private final ConcurrentMap<String, AbstractAwsIotDevice> devices = new ConcurrentHashMap<>();
-    private final AwsIotConnection connection;
+    private final ConcurrentMap<String, AWSIotTopic> subscriptions = new ConcurrentHashMap<String, AWSIotTopic>();
+    private final ConcurrentMap<String, AbstractAwsIotDevice> devices = new ConcurrentHashMap<String, AbstractAwsIotDevice>();
+    protected AwsIotConnection connection;
 
     private ScheduledExecutorService executionService;
+
+    public AbstractAwsIotClient() {
+    }
 
     protected AbstractAwsIotClient(String clientEndpoint, String clientId, KeyStore keyStore, String keyPassword) {
         this.clientEndpoint = clientEndpoint;
@@ -91,7 +94,7 @@ public abstract class AbstractAwsIotClient implements AwsIotConnectionCallback {
         }
     }
 
-    AbstractAwsIotClient(String clientEndpoint, String clientId, AwsIotConnection connection) {
+    protected AbstractAwsIotClient(String clientEndpoint, String clientId, AwsIotConnection connection) {
         this.clientEndpoint = clientEndpoint;
         this.clientId = clientId;
         this.connection = connection;

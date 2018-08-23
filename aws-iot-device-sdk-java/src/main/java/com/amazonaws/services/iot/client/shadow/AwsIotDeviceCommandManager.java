@@ -88,7 +88,7 @@ public class AwsIotDeviceCommandManager {
     }
 
     public AwsIotDeviceCommandManager(AbstractAwsIotDevice device) {
-        this.pendingCommands = new ConcurrentHashMap<>();
+        this.pendingCommands = new ConcurrentHashMap<String, AwsIotDeviceCommand>();
         this.device = device;
         this.objectMapper = new ObjectMapper();
     }

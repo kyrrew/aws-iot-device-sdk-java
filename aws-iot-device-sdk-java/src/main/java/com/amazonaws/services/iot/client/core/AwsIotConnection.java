@@ -95,7 +95,7 @@ public abstract class AwsIotConnection implements AwsIotConnectionCallback {
      * @return the current offline publish queue
      */
     @Getter
-    private ConcurrentLinkedQueue<AWSIotMessage> publishQueue = new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<AWSIotMessage> publishQueue = new ConcurrentLinkedQueue<AWSIotMessage>();
 
     /**
      * The offline subscribe request queue holding messages while the connection
@@ -104,7 +104,7 @@ public abstract class AwsIotConnection implements AwsIotConnectionCallback {
      * @return the current offline subscribe request queue
      */
     @Getter
-    private ConcurrentLinkedQueue<AWSIotMessage> subscribeQueue = new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<AWSIotMessage> subscribeQueue = new ConcurrentLinkedQueue<AWSIotMessage>();
 
     /**
      * The offline unsubscribe request queue holding messages while the
@@ -113,7 +113,7 @@ public abstract class AwsIotConnection implements AwsIotConnectionCallback {
      * @return the current offline unsubscribe request queue
      */
     @Getter
-    private ConcurrentLinkedQueue<AWSIotMessage> unsubscribeQueue = new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<AWSIotMessage> unsubscribeQueue = new ConcurrentLinkedQueue<AWSIotMessage>();
 
     /**
      * Instantiates a new connection object.
@@ -340,7 +340,7 @@ public abstract class AwsIotConnection implements AwsIotConnectionCallback {
                 AWSIotMessage message = publishQueue.poll();
                 publishMessage(message);
             }
-        } catch (AWSIotException | AwsIotRetryableException e) {
+        } catch (Exception e) {
             // should close the connection if we can't send message when
             // connection is good
             LOGGER.log(Level.WARNING, "Failed to send queued messages, will disconnect", e);

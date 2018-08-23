@@ -135,7 +135,7 @@ public class AwsIotWebSocketUrlSigner {
             if (this.sessionToken != null) {
                 this.sessionToken = URLEncoder.encode(this.sessionToken, UTF8);
             }
-        } catch (UnsupportedEncodingException | NoSuchAlgorithmException | InvalidKeyException e) {
+        } catch (Exception e) {
             throw new IllegalArgumentException("Error in initializing signing secret MAC");
         }
     }

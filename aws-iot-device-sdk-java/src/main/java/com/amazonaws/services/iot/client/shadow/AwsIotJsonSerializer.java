@@ -57,12 +57,12 @@ public class AwsIotJsonSerializer extends JsonSerializer<AbstractAwsIotDevice> {
         Method method;
         try {
             method = target.getClass().getMethod(getter);
-        } catch (NoSuchMethodException | SecurityException e) {
+        } catch (Exception e) {
             if (e instanceof NoSuchMethodException && boolean.class.equals(field.getType())) {
                 getter = "is" + fieldName;
                 try {
                     method = target.getClass().getMethod(getter);
-                } catch (NoSuchMethodException | SecurityException ie) {
+                } catch (Exception ie) {
                     throw new IllegalArgumentException(ie);
                 }
             } else {
@@ -73,7 +73,7 @@ public class AwsIotJsonSerializer extends JsonSerializer<AbstractAwsIotDevice> {
         Object value;
         try {
             value = method.invoke(target);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        } catch (Exception e) {
             throw new IOException(e);
         }
         return value;

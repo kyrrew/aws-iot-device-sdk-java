@@ -15,26 +15,23 @@
 
 package com.amazonaws.services.iot.client.mqtt;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.net.SocketFactory;
-
-import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
-import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
-import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
-
 import com.amazonaws.services.iot.client.AWSIotException;
 import com.amazonaws.services.iot.client.AWSIotMessage;
 import com.amazonaws.services.iot.client.core.AbstractAwsIotClient;
 import com.amazonaws.services.iot.client.core.AwsIotConnection;
 import com.amazonaws.services.iot.client.core.AwsIotMessageCallback;
 import com.amazonaws.services.iot.client.core.AwsIotRetryableException;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
+import javax.net.SocketFactory;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This class extends {@link AwsIotConnection} to provide the basic MQTT pub/sub
@@ -147,8 +144,8 @@ public class AwsIotMqttConnection extends AwsIotConnection {
         options.setCleanSession(client.isCleanSession());
         options.setConnectionTimeout(client.getConnectionTimeout() / 1000);
         options.setKeepAliveInterval(client.getKeepAliveInterval() / 1000);
-		options.setMaxInflight(1000);
-        if(client.isClientEnableMetrics()) {
+        options.setMaxInflight(1000);
+        if (client.isClientEnableMetrics()) {
             options.setUserName(USERNAME_METRIC_STRING);
         }
 
